@@ -1,0 +1,97 @@
+import React, { Component } from "react";
+import axios from "axios";
+import { connect } from "react-redux";
+import { subscribe } from "../../store/actions/adminActions";
+
+class SubscriptionForm extends Component {
+  state = {
+    name: "",
+    email: ""
+  };
+  handleInput = e => {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
+  };
+  handleSubscribe = e => {
+    e.preventDefault();
+    this.props.subscribe(this.state);
+  };
+  render() {
+    return (
+      <div className="container m-0 p-0">
+        <button
+          type="button"
+          className="btn btn-white text-danger text-"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
+          <strong>Newsletter</strong>
+        </button>
+        <div
+          className="modal fade"
+          id="exampleModal"
+          tabIndex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
+                  Subscribe For Newsletter
+                </h5>
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <form>
+                  <div className="form-group">
+                    <input
+                      type="email"
+                      id="email"
+                      placeholder="Enter email"
+                      className="form-control"
+                      onChange={this.handleInput}
+                    />
+                    <br />
+                    <input
+                      type="text"
+                      id="name"
+                      placeholder="Name"
+                      className="form-control"
+                      onChange={this.handleInput}
+                    />
+                    <button
+                      className="btn btn-success float-right m-3"
+                      onClick={this.handleSubscribe}
+                    >
+                      Subscribe
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    subscribe: data => {
+      dispatch(subscribe(data));
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SubscriptionForm);
