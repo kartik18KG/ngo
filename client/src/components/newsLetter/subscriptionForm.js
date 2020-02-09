@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import { subscribe } from "../../store/actions/adminActions";
+import "./subscription.css";
 
 class SubscriptionForm extends Component {
   state = {
@@ -19,7 +19,7 @@ class SubscriptionForm extends Component {
   };
   render() {
     return (
-      <div className="container m-0 p-0">
+      <div className="container m-0 p-0 ">
         <button
           type="button"
           className="btn btn-white text-danger text-"
@@ -28,6 +28,7 @@ class SubscriptionForm extends Component {
         >
           <strong>Newsletter</strong>
         </button>
+
         <div
           className="modal fade"
           id="exampleModal"
@@ -36,10 +37,14 @@ class SubscriptionForm extends Component {
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
+          <div className="modal-dialog " role="document">
+            <div className="modal-content newsletter">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
+                <h5
+                  className="modal-title title"
+                  style={{ color: "#0C0A3E" }}
+                  id="exampleModalLabel"
+                >
                   Subscribe For Newsletter
                 </h5>
                 <button
@@ -51,14 +56,15 @@ class SubscriptionForm extends Component {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div className="modal-body">
+
+              <div className="modal-body content">
                 <form>
                   <div className="form-group">
                     <input
                       type="email"
                       id="email"
                       placeholder="Enter email"
-                      className="form-control"
+                      className="form-control newsletter-input"
                       onChange={this.handleInput}
                     />
                     <br />
@@ -66,11 +72,11 @@ class SubscriptionForm extends Component {
                       type="text"
                       id="name"
                       placeholder="Name"
-                      className="form-control"
+                      className="form-control newsletter-input"
                       onChange={this.handleInput}
                     />
                     <button
-                      className="btn btn-success float-right m-3"
+                      className="btn btn-danger float-right m-3"
                       onClick={this.handleSubscribe}
                     >
                       Subscribe

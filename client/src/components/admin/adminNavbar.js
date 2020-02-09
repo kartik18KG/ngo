@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { signOut } from "../../store/actions/authActions";
 
 const adminNavbar = props => {
   return (
@@ -27,6 +29,7 @@ const adminNavbar = props => {
               <span className="text-danger">SubscribersList</span>
             </NavLink>
           </li>
+
           <li className="nav-item dropdown navbar ">
             <a
               className="nav-link dropdown-toggle"
@@ -40,19 +43,44 @@ const adminNavbar = props => {
               Edit
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="/adminpanel/editHomePage">
                 Edit Homepage
               </a>
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="/adminpanel/editAboutPage">
                 Edit Aboutpage
+              </a>
+              <a className="dropdown-item" href="carousel">
+                Edit Carousel
               </a>
               <div className="dropdown-divider"></div>
             </div>
           </li>
+          <a
+            type="button"
+            onClick={props.signOut}
+            className="nav-link  text-dark"
+          >
+            LogOut
+          </a>
         </div>
       </nav>
     </div>
   );
 };
 
-export default adminNavbar;
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    profile: state.firebase.profile,
+    user: state.firebase.auth,
+    admin: state.auth
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signOut: () => dispatch(signOut())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(adminNavbar);

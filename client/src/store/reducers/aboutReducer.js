@@ -1,26 +1,31 @@
-const initState={
-    data:[
-        {
-            id:'1', 
-            header:'Something Something', 
-            context:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam praesentium vero doloribus facilis impedit consectetur! Architecto, alias, sunt rerum possimus doloremque assumenda ducimus reprehenderit ex numquam sint reiciendis officia distinctio."
-        },
-        {
-            id:'2', 
-            header:'Something Something', 
-            context:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam praesentium vero doloribus facilis impedit consectetur! Architecto, alias, sunt rerum possimus doloremque assumenda ducimus reprehenderit ex numquam sint reiciendis officia distinctio."
-        },
-        {
-            id:'3', 
-            header:'Something Something', 
-            context:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam praesentium vero doloribus facilis impedit consectetur! Architecto, alias, sunt rerum possimus doloremque assumenda ducimus reprehenderit ex numquam sint reiciendis officia distinctio."
-        },
-    ]
-}
+const initState={}
 
 const aboutReducer= (state=initState, action)=>{
-    return{
-        ...state
+    switch(action.type){
+        case"UPDATE_ABOUT_PAGE_DATA_SUCCESSFULLY":
+            console.log("updated")
+            return{
+                ...state
+            }
+        case"DELETED_ABOUT_PAGE_SUCCESSFULLY":
+            console.log("deleted")
+            return{
+                ...state
+            }
+        case"ADDED_ABOUT_CONTENT_SUCCESSFULLY":
+            console.log("added")
+            return{
+                ...state
+            }
+        case"ERROR_ADDING_ABOUT_CONTENT":
+            console.log("error")
+            return{
+                ...state
+            }    
+        default:
+            return{
+                ...state
+            }    
     }
 }
 

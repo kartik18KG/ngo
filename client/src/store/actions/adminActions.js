@@ -52,41 +52,63 @@ export const subscribe = data => {
   };
 };
 
-// export const subscribe = data => {
-//   return (dispatch, getState, { getFirebase, getFirestore }) => {
-//     console.log(data);
-//     const firestore = getFirestore();
-//     firestore
-//       .collection("subData")
-//       .add(...data)
-//       .then(
-//         dispatch({
-//           type: "SUBSCRIBE_SUCCESS",
-//           data: data
-//         })
-//       )
-//       .catch(err => {
-//         dispatch({
-//           type: "SUBSCRIBE_ERROR",
-//           err: err
-//         });
-//       });
-//   };
-// };
+//carousel
 
-export const deleteTeacher = data => {
+export const AddImageToCarousel = data => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     console.log(data);
+    const firebase = getFirebase();
     const firestore = getFirestore();
-    firestore
-      .collection("Needy")
-      .doc(data.id)
-      .delete()
+    const fileName = data.selectedFile.name;
+    const file = data.selectedFile;
+    const storageRef = firebase.storage().ref("carousel_pictures/" + file.name);
+    storageRef
+      .put(file)
+      .then(snapshot => {
+        console.log(snapshot);
+
+        snapshot.ref.getDownloadURL().then(imageUrl => {
+          console.log(imageUrl);
+          if (imageUrl) {
+            firestore.collection("Carousel").add({
+              imageUrl: imageUrl,
+              fileName: fileName
+            });
+          }
+        });
+      })
       .then(() => {
-        dispatch({ type: "DELETE_SUCCESS" });
+        dispatch({ type: "SUCCESS_UPLOADING_CAROUSEL" });
       })
       .catch(err => {
-        dispatch({ type: "DELETE_ERROR", err });
+        dispatch({ type: "ERROR_UPLOADING_CAROUSEL", err });
+      });
+  };
+};
+
+export const DeleteImageFromCarousel = id => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    const firebase = getFirebase();
+    firestore
+      .collection("Carousel")
+      .doc(id)
+      .get()
+      .then(doc => {
+        const fileName = doc.data().fileName;
+        const storageRef = firebase.storage().ref();
+        const imageRef = storageRef.child(`carousel_pictures/${fileName}`);
+        imageRef.delete();
+        firestore
+          .collection("Carousel")
+          .doc(id)
+          .delete();
+      })
+      .then(() => {
+        dispatch({ type: "SUCCESS_DELETING_CAROUSEL_IMAGE" });
+      })
+      .catch(err => {
+        console.log(err);
       });
   };
 };

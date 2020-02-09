@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Bebas+Neue|Bitter|Molle:400i|Roboto+Slab&display=swap');
+.title {
+    font-family: 'Bitter', serif;
+}
+
+.newsletter {
+    background-image: url('../../images/newsletter4.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content {
+    opacity: 0.8;
+}
+
+.home {
+    background-image: url('../../images/home4.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 20px;
+}

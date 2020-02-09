@@ -28,6 +28,7 @@
 //   firestoreConnect([{ collection: "Needy" }])
 // )(helpSeekers);
 ////This code aint working
+import "./seekers.css";
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
@@ -38,14 +39,19 @@ class helpSeekers extends Component {
   render() {
     const { Needy } = this.props;
     return (
-      <div className="container-lg">
+      <div className=" seek-help">
         <div class="row">
           {Needy &&
             Needy.map(teacher => {
               if (teacher.approved === true) {
                 return (
                   <div className="col-sm-4 p-3">
-                    <div className="card " style={{ width: "18rem" }}>
+                    <div
+                      className="card "
+                      style={
+                        ({ width: "18rem" }, { background: "transparent" })
+                      }
+                    >
                       <img
                         className="card-img-top"
                         height="300px"
@@ -54,16 +60,19 @@ class helpSeekers extends Component {
                         alt="Card image cap"
                       ></img>
                       <hr />
-                      <p className="card-text p-1">
-                        <strong>Name</strong>: {teacher.name}
+                      <p className="card-text p-1 text-field">
+                        <strong>Name</strong>:{" "}
+                        <span className="text-val">{teacher.name}</span>
                       </p>
 
-                      <p className="card-text p-1">
-                        <strong>School Name</strong>: {teacher.school}
+                      <p className="card-text p-1 text-field">
+                        <strong>School Name</strong>:{" "}
+                        <span className="text-val">{teacher.school}</span>
                       </p>
 
-                      <p className="card-text p-1">
-                        <strong>Subject</strong>: {teacher.subject}
+                      <p className="card-text p-1 text-field">
+                        <strong>Subject</strong>:{" "}
+                        <span className="text-val">{teacher.subject}</span>
                       </p>
                     </div>
                   </div>
